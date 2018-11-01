@@ -36,7 +36,7 @@
 				$(this.el).prepend('<h1>新建歌曲</h1>')
 			}
 		},
-		reset() { 
+		reset() {
 			this.render({})
 		}
 	}
@@ -47,12 +47,19 @@
 			url: '',
 			id: ''
 		},
+		update(data) {
+			var song = AV.Object.createWithoutData('Song', this.data.id)
+			song.set('name', data.name)
+			song.set('singer', data.singer)
+			song.set('url', data.url)
+			return song.save().then((response) => {
+				Object.assign(this.data, data)
+				return response
+			})
+		},
 		create(data) {
-			// 声明类型
 			var Song = AV.Object.extend('Song');
-			// 新建对象
 			var song = new Song();
-			// 设置名称
 			song.set('name', data.name);
 			song.set('singer', data.singer);
 			song.set('url', data.url);
@@ -60,7 +67,7 @@
 				let { id, attributes } = newSong
 				// ES6写法
 				Object.assign(this.data, { id, ...attributes })
-				
+
 				// ES5写法
 				// Object.assign(this.data, {
 				// 	id: id,
@@ -98,23 +105,41 @@
 				this.view.render(this.model.data)
 			})
 		},
+		create() {
+			let needs = 'name singer url'.split(' ')
+			let data = {}
+			needs.map((string) => {
+				data[string] = this.view.$el.find(`[name = "${string}"]`).val()
+			})
+			this.model.create(data).then(() => {
+				this.view.reset()
+				// 此写法会改变song-list模块的data,需要深拷贝
+				// window.eventHub.emit('create', this.model.data)
+				// 深拷贝
+				let string = JSON.stringify(this.model.data)
+				let obj = JSON.parse(string)
+				window.eventHub.emit('create', obj)
+			})
+		},
+		update() {
+			let needs = 'name singer url'.split(' ')
+			let data = {}
+			needs.map((string) => {
+				data[string] = this.view.$el.find(`[name = "${string}"]`).val()
+			})
+			this.model.update(data).then(() => {
+				// 深拷贝
+				window.eventHub.emit('update', JSON.parse(JSON.stringify(this.model.data)))
+			})
+		},
 		bindEvents() {
 			this.view.$el.on('submit', 'form', (e) => {
 				e.preventDefault()
-				let needs = 'name singer url'.split(' ')
-				let data = {}
-				needs.map((string) => {
-					data[string] = this.view.$el.find(`[name = "${string}"]`).val()
-				})
-				this.model.create(data).then(() => {
-					this.view.reset()
-					// 此写法会改变song-list模块的data,需要深拷贝
-					// window.eventHub.emit('create', this.model.data)
-					// 深拷贝
-					let string = JSON.stringify(this.model.data)
-					let obj = JSON.parse(string)
-					window.eventHub.emit('create', obj)
-				})
+				if (this.model.data.id) {
+					this.update()
+				} else {
+					this.create()
+				}
 			})
 		}
 	}
