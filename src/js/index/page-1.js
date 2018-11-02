@@ -23,7 +23,6 @@
 		},
 		bindEventHub() {
 			window.eventHub.on('selectTab', (tabName) => {
-				console.log('tabName1', tabName)
 				if (tabName === 'page-1') {
 					this.view.show()
 				} else {
@@ -36,7 +35,6 @@
 			script1.src = './js/index/page-1-1.js'
 			document.body.appendChild(script1)
 			script1.onload = function () {
-				console.log('模块1加载完毕')
 			}
 		},
 		loadModule2() {
@@ -44,7 +42,6 @@
 			script2.src = './js/index/page-1-2.js'
 			document.body.appendChild(script2)
 			script2.onload = function () {
-				console.log('模块2加载完毕')
 			}
 		}
 	}

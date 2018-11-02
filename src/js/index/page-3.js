@@ -21,7 +21,6 @@
 		},
 		bindEventHub() {
 			window.eventHub.on('selectTab', (tabName) => {
-				console.log('tabName3', tabName)
 				if (tabName === 'page-3') {
 					this.view.show()
 				} else {
