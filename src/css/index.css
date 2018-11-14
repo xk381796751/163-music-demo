@@ -1,6 +1,4 @@
-/* red: #D43C33 */
-
-/* grey: #888 */
+/* reset */
 
 * {
     margin: 0;
@@ -51,6 +49,7 @@ body {
 }
 
 body {
+    font: 14px/1.5 Helvetica, sans-serif;
     font-size: 15px;
     background: white;
 }
@@ -71,6 +70,8 @@ body {
     z-index: 1;
     background: white;
 }
+
+/* topbar */
 
 section.topbar {
     display: flex;
@@ -145,6 +146,8 @@ section.topbar>a::after {
     width: 100%;
 }
 
+/* tab-content */
+
 .tab-content {
     margin-top: 105px;
 }
@@ -167,7 +170,7 @@ section.topbar>a::after {
     display: table;
 }
 
-section.playlists {}
+/* playlists */
 
 section.playlists>ol.songs {
     display: flex;
@@ -195,44 +198,51 @@ section.playlists>ol.songs>li img {
     width: 100%;
 }
 
-section.songs {}
+/* latestMusic */
 
-section.songs>.list {
+.list {
     margin-top: 18px;
 }
 
-section.songs>.list>li>h3 {
+.list>li {
+    position: relative;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-bottom: 1px solid #e2e2e3;
+}
+
+.list>li a {
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    padding-bottom: 6px;
+    padding-top: 5px;
+}
+
+.list>li>a>h3 {
     font-size: 17px;
 }
 
-section.songs>.list>li>p {
+.list>li>a>p {
     font-size: 12px;
     color: #888;
 }
 
-section.songs>.list>li {
-    position: relative;
-    margin-left: 10px;
-    padding-bottom: 6px;
-    padding-top: 5px;
-    border-bottom: 1px solid #E2E2E3;
-}
-
-section.songs>.list .playButton {
+.list .playButton {
     position: absolute;
     right: 8px;
     top: 50%;
     transform: translateY(-50%);
 }
 
-section.songs>.list .icon-play {
+.list .icon-play {
     width: 22px;
     height: 22px;
     vertical-align: middle;
     fill: #AAA;
 }
 
-section.songs>.list .icon-sq {
+.list .icon-sq {
     fill: #FE672E;
 }
 
@@ -265,4 +275,70 @@ section.art .copyright {
     font-size: 12px;
     color: #888;
     transform: scale(.75);
+}
+
+/* hotList */
+
+.hot-board {
+    background: url(//s3.music.126.net/m/s/img/hot_music_bg_2x.jpg?f01a252389c26bcf016816242eaa6aee) no-repeat;
+    position: relative;
+    height: 40vw;
+    padding-left: 5.8vw;
+    padding-top: 6.9vw;
+    overflow: hidden;
+    background-size: contain;
+}
+
+.hot-board .hot-music-logo {
+    background-image: url(//s3.music.126.net/m/s/img/index_icon_3x.png?49a82fee3e0fc602e9c8b25df2bda159);
+    width: 142px;
+    height: 67px;
+    background-position: -24px -30px;
+    background-size: 166px 97px;
+}
+
+.hot-board .hot-music-date {
+    margin-top: 3vw;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 3.3vw;
+    -webkit-transform: scale(0.91);
+    transform: scale(0.91);
+    -webkit-transform-origin: left top;
+    transform-origin: left top;
+}
+
+#hotList {
+    margin-top: 0;
+}
+
+#hotList li {
+    margin: 0;
+    padding-left: 9vw;
+}
+
+#hotList li a {
+	display: inline-block;
+    height: 100%;
+    width: 100%;
+    padding-bottom: 6px;
+    padding-top: 5px;
+}
+
+
+#hotList li .rank {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 2vw;
+    color: #999;
+}
+
+#hotList li:nth-child(1) .rank,
+#hotList li:nth-child(2) .rank,
+#hotList li:nth-child(3) .rank {
+    color: #df3436;
+}
+
+.songs-loading {
+    text-align: center;
 }
